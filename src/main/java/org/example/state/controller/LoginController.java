@@ -30,6 +30,9 @@ public class LoginController extends HttpServlet {
         // main -> java, webapp, resources -> 최상단으로 각각 인식됨
         req.getRequestDispatcher("WEB-INF/views/login.jsp").forward(req, resp); // !
         // 외부의 URL은 그대로인 상태에서 뒤에 리소스만 연결 (servlet, jsp)
+
+        // 주소창에서는 변하는 게 X, request를 계속 사용할 수 있음
+        // request 객체를 여전히 가지고 있다 -> 새로고침 재시도 -> 2번 이상 중복된 요청.
     }
 
     @Override
@@ -39,6 +42,15 @@ public class LoginController extends HttpServlet {
         System.out.println(req.getParameter("msg"));
         req.setAttribute("key", "value");
         req.setAttribute("msg", req.getParameter("msg") + "라고 입력하셨습니다");
+
+        // 로그인
+        String userId = req.getParameter("userId");
+        String password = req.getParameter("password");
+        if (userId.equals("myid") && password.equals("mypass")) {
+            req.setAttribute("loginMessage", "로그인 성공");
+        } else {
+            req.setAttribute("loginMessage", "로그인 실패");
+        }
         req.getRequestDispatcher("WEB-INF/views/login.jsp").forward(req, resp); // !
     }
 }

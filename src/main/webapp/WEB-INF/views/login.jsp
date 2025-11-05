@@ -4,6 +4,23 @@
     <title>로그인 페이지</title>
 </head>
 <body>
+    <a href="/join">회원가입</a>
+    <h3>로그인</h3>
+    <%-- 보안처리가 필요하면 무조건 post --%>
+    <%-- http : post로 요청하는 것도 맘만 먹으면 네트워크 상에서 탈취 가능 <- 오래된 사이트들은 post를 발송할 때도 암호화를 함
+        vs https : 인증서 형태로 암호화되기 때문에 보안적으로 신경쓴 형태 --%>
+<%--    <form method="get">--%>
+    <form method="post">
+        <input type="text" name="userId"><br>
+<%--        <input type="text" name="password"><br>--%>
+        <input type="password" name="password"><br>
+        <button>로그인</button>
+    </form>
+    <p>
+        <%= request.getAttribute("loginMessage") %>
+    </p>
+    <hr>
+    <%--  구분선을 만드는 태그 hr (horizon)  --%>
     <h3>Parameter</h3>
     <p>
         <%= request.getParameter("msg") %>
