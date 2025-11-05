@@ -1,3 +1,4 @@
+<%@ page import="org.example.state.util.CookieUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,15 +9,13 @@
 //        String counter = "1";
         int counter = 1;
         String visited = "";
-        for (Cookie c : request.getCookies()) {
-            String name = c.getName();
-            if (name.equals("visited")) {
-                visited = c.getValue();
-            }
-            if (name.equals("counter")) {
-//                counter = c.getValue();
-                counter = Integer.parseInt(c.getValue());
-            }
+        Cookie visitedCookie = CookieUtil.findCookie(request.getCookies(), "visited");
+        if (visitedCookie != null) {
+            visited = visitedCookie.getValue();
+        }
+        Cookie counterCookie = CookieUtil.findCookie(request.getCookies(), "counter");
+        if (counterCookie != null) {
+            counter = Integer.parseInt(counterCookie.getValue());
         }
     %>
     <p>
